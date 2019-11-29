@@ -6,7 +6,6 @@ services:
     ports:
       - 8082:80 # change ip if required
       - 8083:433 # change ip if required
-    working_dir: /var/www/html
     volumes:
       - ./wp-content:/var/www/html
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
