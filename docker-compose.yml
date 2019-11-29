@@ -6,8 +6,9 @@ services:
     ports:
       - 8082:80 # change ip if required
       - 8083:433 # change ip if required
+    working_dir: /var/www/html
     volumes:
-      - ./wp-app:/var/www/html # Full wordpress project
+      - ./wp-content:/var/www/html/wp-content # Full wordpress project
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     environment:
       WORDPRESS_DB_HOST: db:3306
