@@ -1,28 +1,23 @@
-version: '2'
+version: '3'
 
 services:
   wp:
     image: wordpress:latest # https://hub.docker.com/_/wordpress/
     ports:
       - 8082:80 # change ip if required
+    working_dir: /var/www/html
     volumes:
-      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/uploads.ini
-      - ./wp-app:/var/www/html # Full wordpress project
-      - ./theme/trunk/:/var/www/html/wp-content/themes/saasmax # Theme development
-      #- ./plugin-name/trunk/:/var/www/html/wp-content/plugins/plugin-name # Plugin development
-      #- ./theme-name/trunk/:/var/www/html/wp-content/themes/theme-name # Theme development
+      - ./wp-content:/var/www/html/wp-content 
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     environment:
-      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_NAME: "wp_buddy_website"
       WORDPRESS_DB_USER: root
       WORDPRESS_DB_PASSWORD: "buddy_pws_site"
       VIRTUAL_HOST: "www.buddysurvey.co"
     depends_on:
       - db
-    links:
-      - db
       
-
   pma:
     image: phpmyadmin/phpmyadmin
     environment:
